@@ -1,18 +1,21 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-bg-primary: #0a0e1a;
-  --color-bg-surface: #111827;
-  --color-bg-card: #1a1f35;
-  --color-text-primary: #f1f5f9;
-  --color-text-secondary: #94a3b8;
-  --color-accent: #3b82f6;
-  --color-accent-hover: #2563eb;
-  --color-border: #1e293b;
-  --color-tag-bg: #1e293b;
-  --color-tag-text: #93c5fd;
+  --color-bg-primary: #ffffff;
+  --color-bg-surface: #f8f7f4;
+  --color-bg-card: #ffffff;
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #555555;
+  --color-accent: #2c5282;
+  --color-accent-hover: #1a365d;
+  --color-border: #e2e0dc;
+  --color-tag-bg: #edf2f7;
+  --color-tag-text: #2c5282;
   --color-success: #22c55e;
   --color-error: #ef4444;
+  --color-backdrop: rgba(0, 0, 0, 0.5);
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Source Sans 3', system-ui, sans-serif;
 }
 
 html {
@@ -22,14 +25,12 @@ html {
 body {
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
-  font-family:
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
+  font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
 }

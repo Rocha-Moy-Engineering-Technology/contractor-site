@@ -6,8 +6,6 @@ async function setInputValue(
   element: HTMLInputElement | HTMLTextAreaElement,
   value: string
 ): Promise<void> {
-  // Set value directly on DOM element, then fire input event
-  // This is needed because Svelte 5 reads e.target.value from the actual DOM element
   element.value = value;
   await fireEvent.input(element);
 }
@@ -34,17 +32,6 @@ async function fillForm(config: {
 describe('ContactForm', () => {
   beforeEach(() => {
     vi.mocked(global.fetch).mockReset();
-  });
-
-  it('renders a section with the contact id', () => {
-    const { container } = render(ContactForm);
-    const section = container.querySelector('#contact');
-    expect(section).toBeInTheDocument();
-  });
-
-  it('renders the section heading', () => {
-    render(ContactForm);
-    expect(screen.getByText('Get in Touch')).toBeInTheDocument();
   });
 
   it('renders name, email, and message fields', () => {

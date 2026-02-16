@@ -11,37 +11,50 @@ test.describe('Contractor Site', () => {
     );
   });
 
-  test('navigation bar is visible', async ({ page }) => {
+  test('navigation bar is visible with download and contact', async ({
+    page,
+  }) => {
     const nav = page.locator('nav');
     await expect(nav).toBeVisible();
-    await expect(nav.getByText('Home')).toBeVisible();
-    await expect(nav.getByText('Resume')).toBeVisible();
-    await expect(nav.getByText('Interests')).toBeVisible();
-    await expect(nav.getByText('Contact')).toBeVisible();
+    await expect(nav.getByText('PHR Moy')).toBeVisible();
+    await expect(nav.getByText('Download Resume')).toBeVisible();
+    await expect(nav.getByRole('button', { name: /contact/i })).toBeVisible();
   });
 
-  test('hero section displays profile info', async ({ page }) => {
-    const hero = page.locator('#hero');
+  test('profile column displays name and title', async ({ page }) => {
     await expect(
-      hero.getByRole('heading', { name: 'Pedro Henrique Rocha Moy' })
+      page.getByRole('heading', { name: 'Pedro Henrique Rocha Moy' })
     ).toBeVisible();
     await expect(
-      hero.getByText('Data Scientist and Machine Learning Developer')
+      page.getByAltText('Pedro Henrique Rocha Moy')
     ).toBeVisible();
-    await expect(page.getByAltText('Pedro Henrique Rocha Moy')).toBeVisible();
   });
 
-  test('hero section has social links', async ({ page }) => {
-    const github = page.getByRole('link', { name: /github/i });
+  test('navbar has social icon links', async ({ page }) => {
+    const nav = page.locator('nav');
+    const github = nav.getByRole('link', { name: /github/i });
     await expect(github).toBeVisible();
     await expect(github).toHaveAttribute('href', 'https://github.com/phrmoy');
 
-    const linkedin = page.getByRole('link', { name: /linkedin/i });
+    const linkedin = nav.getByRole('link', { name: /linkedin/i });
     await expect(linkedin).toBeVisible();
     await expect(linkedin).toHaveAttribute(
       'href',
       'https://www.linkedin.com/in/phrmoy/'
     );
+  });
+
+  test('profile column has education entries', async ({ page }) => {
+    await expect(
+      page.getByText('Executive MBA in Business Administration')
+    ).toBeVisible();
+    await expect(
+      page.getByText('Georgia Institute of Technology')
+    ).toBeVisible();
+  });
+
+  test('profile column shows inline interests', async ({ page }) => {
+    await expect(page.getByText(/Interests:.*ML & AI/)).toBeVisible();
   });
 
   test('resume section has experience entries', async ({ page }) => {
@@ -50,16 +63,6 @@ test.describe('Contractor Site', () => {
     await expect(resume.getByText('Chief Architect')).toBeVisible();
     await expect(resume.getByText('AI Consultant')).toBeVisible();
     await expect(resume.getByText('AI Software Developer')).toBeVisible();
-  });
-
-  test('resume section has education entries', async ({ page }) => {
-    const resume = page.locator('#resume');
-    await expect(
-      resume.getByText('Executive MBA in Business Administration')
-    ).toBeVisible();
-    await expect(
-      resume.getByText('Georgia Institute of Technology')
-    ).toBeVisible();
   });
 
   test('resume section has portfolio entry', async ({ page }) => {
@@ -71,26 +74,9 @@ test.describe('Contractor Site', () => {
     await expect(portfolioLink).toHaveAttribute('target', '_blank');
   });
 
-  test('interests section displays tags', async ({ page }) => {
-    const interests = page.locator('#interests');
-    await expect(interests).toBeVisible();
-    await expect(interests.getByText('Machine Learning & AI')).toBeVisible();
-    await expect(interests.getByText('Data Engineering')).toBeVisible();
-    await expect(interests.getByText('Quantitative Finance')).toBeVisible();
-  });
-
-  test('contact section has form fields', async ({ page }) => {
-    const contact = page.locator('#contact');
-    await expect(contact).toBeVisible();
-    await expect(contact.getByLabel(/name/i)).toBeVisible();
-    await expect(contact.getByLabel(/email/i)).toBeVisible();
-    await expect(contact.getByLabel(/message/i)).toBeVisible();
-    await expect(
-      contact.getByRole('button', { name: /send message/i })
-    ).toBeVisible();
-  });
-
-  test('footer has PDF download link', async ({ page }) => {
+  test('navbar download resume link has correct attributes', async ({
+    page,
+  }) => {
     const downloadLink = page.getByRole('link', {
       name: /download resume/i,
     });
@@ -99,8 +85,23 @@ test.describe('Contractor Site', () => {
     await expect(downloadLink).toHaveAttribute('download', '');
   });
 
-  test('nav links scroll to sections', async ({ page }) => {
-    await page.getByRole('link', { name: 'Resume', exact: true }).click();
-    await expect(page.locator('#resume')).toBeInViewport();
+  test('contact modal opens and closes', async ({ page }) => {
+    await page.getByRole('button', { name: /contact/i }).click();
+    const dialog = page.locator('[role="dialog"]');
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByText('Get in Touch')).toBeVisible();
+    await expect(dialog.getByLabel(/name/i)).toBeVisible();
+
+    await page.keyboard.press('Escape');
+    await expect(dialog).not.toBeVisible();
+  });
+
+  test('contact modal closes on X button', async ({ page }) => {
+    await page.getByRole('button', { name: /contact/i }).click();
+    const dialog = page.locator('[role="dialog"]');
+    await expect(dialog).toBeVisible();
+
+    await page.getByRole('button', { name: /close contact form/i }).click();
+    await expect(dialog).not.toBeVisible();
   });
 });

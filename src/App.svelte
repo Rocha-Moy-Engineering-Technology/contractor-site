@@ -1,17 +1,24 @@
 <script lang="ts">
+  import { ModalState } from './types/modal';
   import NavBar from './components/NavBar.svelte';
-  import Hero from './components/Hero.svelte';
-  import ResumeContent from './components/ResumeContent.svelte';
-  import Interests from './components/Interests.svelte';
-  import ContactForm from './components/ContactForm.svelte';
-  import Footer from './components/Footer.svelte';
+  import ProfileColumn from './components/ProfileColumn.svelte';
+  import ExperienceColumn from './components/ExperienceColumn.svelte';
+  import ContactModal from './components/ContactModal.svelte';
+
+  let modalState = $state<ModalState>(ModalState.Closed);
+
+  function openContact(): void {
+    modalState = ModalState.Open;
+  }
+
+  function closeContact(): void {
+    modalState = ModalState.Closed;
+  }
 </script>
 
-<NavBar />
-<main>
-  <Hero />
-  <ResumeContent />
-  <Interests />
-  <ContactForm />
+<NavBar oncontact={openContact} />
+<main class="flex flex-col lg:flex-row">
+  <ProfileColumn />
+  <ExperienceColumn />
 </main>
-<Footer />
+<ContactModal state={modalState} onclose={closeContact} />

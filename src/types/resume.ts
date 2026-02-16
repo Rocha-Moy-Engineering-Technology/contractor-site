@@ -329,3 +329,6 @@ export const PROFILE = {
   github: 'https://github.com/phrmoy',
   linkedin: 'https://www.linkedin.com/in/phrmoy/',
 } as const;
+
+export const INTERESTS_INLINE_TEXT =
+  'ML & AI, Agentic Development, Data Engineering, NLP, Full-Stack Development, Cloud & DevOps, Quantitative Finance, Data Science' as const;
