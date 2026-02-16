@@ -314,7 +314,7 @@ export const EDUCATION_ENTRIES: readonly EducationEntry[] = [
     dates: '2010 - 2012',
   },
   {
-    degree: 'Bachelor\u2019s Degree in Mechanical Engineering',
+    degree: 'Bachelor\u2019s Degree in Mechanical Engineering (Math Minor)',
     institution: 'University of Massachusetts Lowell',
     dates: '2008 - 2010',
   },
