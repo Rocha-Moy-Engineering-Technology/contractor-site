@@ -6,6 +6,10 @@
   }
 
   let { oncontact }: Props = $props();
+
+  const now = new Date();
+  const rev = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}`;
+  const downloadFilename = `PHRMOY_RESUME_rev${rev}.pdf`;
 </script>
 
 <style>
@@ -21,8 +25,8 @@
     <span class="text-text-primary font-display text-2xl font-bold lg:text-3xl">{PROFILE.name}</span>
     <div class="flex items-center gap-5">
       <a
-        href="/resume.pdf"
-        download
+        href="{import.meta.env.BASE_URL}resume.pdf"
+        download={downloadFilename}
         aria-label="Download Resume"
         class="tooltip text-text-secondary hover:text-accent relative transition-colors duration-200"
       >
