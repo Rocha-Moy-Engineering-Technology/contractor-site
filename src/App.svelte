@@ -1,7 +1,17 @@
 <script lang="ts">
-  // Component logic here
+  import NavBar from './components/NavBar.svelte';
+  import Hero from './components/Hero.svelte';
+  import ResumeContent from './components/ResumeContent.svelte';
+  import Interests from './components/Interests.svelte';
+  import ContactForm from './components/ContactForm.svelte';
+  import Footer from './components/Footer.svelte';
 </script>
 
-<main class="flex min-h-screen flex-col items-center justify-center p-24">
-  <h1 class="text-4xl font-bold">contractor-site</h1>
+<NavBar />
+<main>
+  <Hero />
+  <ResumeContent />
+  <Interests />
+  <ContactForm />
 </main>
+<Footer />

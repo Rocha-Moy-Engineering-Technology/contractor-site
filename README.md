@@ -16,7 +16,7 @@ other links that I want part of this site are:
 
 https://github.com/phrmoy
 https://www.linkedin.com/in/phrmoy/
- 
+
 -
 
 let's also have an interest section;
