@@ -3,7 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/contractor-site/',
+  base: '/resume/',
   plugins: [tailwindcss(), svelte()],
   resolve: {
     conditions: ['browser'],
